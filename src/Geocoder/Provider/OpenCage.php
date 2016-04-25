@@ -83,6 +83,9 @@ class OpenCage extends AbstractHttpProvider implements LocaleAwareProvider
         }
 
         $query = sprintf(self::GEOCODE_ENDPOINT_URL, $this->scheme, $this->apiKey, urlencode($address), $this->getLimit());
+        if (! is_null($this->countryCode)) {
+            $query .= '&countrycode=' . $this->countryCode;
+        }
 
         if ($this->annotations) {
             $query .= '&no_annotations=1';
@@ -107,6 +110,18 @@ class OpenCage extends AbstractHttpProvider implements LocaleAwareProvider
     public function getName()
     {
         return 'opencage';
+    }
+
+    /**
+     * Sets a country code used to restrict the results to the specified country.
+     *
+     * @param $countryCode
+     * @return $this
+     */
+    public function setCountryCode($countryCode)
+    {
+        $this->countryCode = $countryCode;
+        return $this;
     }
 
     /**
