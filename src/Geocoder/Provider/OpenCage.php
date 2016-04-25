@@ -19,12 +19,12 @@ use Ivory\HttpAdapter\HttpAdapterInterface;
  */
 class OpenCage extends AbstractHttpProvider implements LocaleAwareProvider
 {
+    use LocaleTrait;
+
     /**
      * @var string
      */
     const GEOCODE_ENDPOINT_URL = '%s://api.opencagedata.com/geocode/v1/json?key=%s&query=%s&limit=%d&pretty=1';
-
-    use LocaleTrait;
 
     /**
      * @var string
