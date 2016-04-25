@@ -124,7 +124,7 @@ class OpenCageTest extends TestCase
         $this->assertEquals('England', $result->getAdminLevels()->get(1)->getName());
         $this->assertEquals('United Kingdom', $result->getCountry()->getName());
         $this->assertEquals('GB', $result->getCountry()->getCode());
-        $this->assertEquals('Europe/London' , $result->getTimezone());
+        $this->assertEquals('Europe/London', $result->getTimezone());
     }
 
     public function testReverseWithVillage()
@@ -184,7 +184,7 @@ class OpenCageTest extends TestCase
         $this->assertEquals(18.3840489, $result->getLatitude(), '', 0.01);
         $this->assertEquals(-78.131485, $result->getLongitude(), '', 0.01);
         $this->assertNull($result->getLocality());
-        $this->assertTrue( $result->getAdminLevels()->has(2));
+        $this->assertTrue($result->getAdminLevels()->has(2));
         $this->assertEquals('Hanover', $result->getAdminLevels()->get(2)->getName());
         $this->assertEquals('Jamaica', $result->getCountry()->getName());
 
