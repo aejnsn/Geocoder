@@ -37,18 +37,35 @@ class OpenCage extends AbstractHttpProvider implements LocaleAwareProvider
     private $apiKey;
 
     /**
-     * @param HttpAdapterInterface $adapter An HTTP adapter.
-     * @param string               $apiKey  An API key.
-     * @param bool                 $useSsl  Whether to use an SSL connection (optional).
-     * @param string|null          $locale  A locale (optional).
+     * @var boolean
      */
-    public function __construct(HttpAdapterInterface $adapter, $apiKey, $useSsl = false, $locale = null)
-    {
+    private $annotations;
+
+    /**
+     * @var string
+     */
+    private $countryCode;
+
+    /**
+     * @param HttpAdapterInterface $adapter An HTTP adapter.
+     * @param string $apiKey An API key.
+     * @param bool $useSsl Whether to use an SSL connection (optional).
+     * @param string|null $locale A locale (optional).
+     * @param bool $annotations
+     */
+    public function __construct(
+        HttpAdapterInterface $adapter,
+        $apiKey,
+        $useSsl = false,
+        $locale = null,
+        $annotations = false
+    ) {
         parent::__construct($adapter);
 
         $this->apiKey = $apiKey;
         $this->scheme = $useSsl ? 'https' : 'http';
         $this->locale = $locale;
+        $this->annotations = $annotations;
     }
 
     /**
@@ -66,6 +83,10 @@ class OpenCage extends AbstractHttpProvider implements LocaleAwareProvider
         }
 
         $query = sprintf(self::GEOCODE_ENDPOINT_URL, $this->scheme, $this->apiKey, urlencode($address), $this->getLimit());
+
+        if ($this->annotations) {
+            $query .= '&no_annotations=1';
+        }
 
         return $this->executeQuery($query);
     }
